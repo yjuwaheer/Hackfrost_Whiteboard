@@ -11,11 +11,23 @@ app.get("/", (req, res) => {
     res.render("home");
 });
 
+app.get("/join", (req, res) => {
+    res.render("join");
+});
+
+app.get("/create", (req, res) => {
+    res.render("create");
+});
+
 app.get("/trial", (req, res) => {
     io.on("connection", (socket) => {
         socket.on("drawing", (data) => socket.broadcast.emit("drawing", data));
     });
     res.render("board");
+});
+
+app.get("*", (req, res) => {
+    res.render("404");
 });
 
 // app.get("/trial", function onConnection(socket) {

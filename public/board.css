@@ -219,3 +219,25 @@ input[type="range"]::-moz-range-thumb {
 .home:active {
     opacity: 1;
 }
+
+.share {
+    font-size: 40px;
+    position: fixed;
+    top: 15px;
+    right: 25px;
+    background-color: rgb(99, 36, 0);
+    color: white;
+    margin-top: 1vh;
+    margin-right: 0.5vh;
+    padding: 1vh;
+    border-radius: 5px;
+}
+
+.share:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.share:active {
+    opacity: 1;
+}

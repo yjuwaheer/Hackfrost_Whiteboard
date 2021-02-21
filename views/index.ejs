@@ -21,22 +21,23 @@
                 <div class="color green"></div>
                 <div class="color blue"></div>
                 <div class="color yellow"></div>
-                <br />
-                <div class="color white eraser fas fa-eraser"></div>
             </div>
-            <input
-                type="range"
-                id="slider"
-                name="slider"
-                min="5"
-                max="50"
-                value="5"
-                step="5"
-            />
+            <div class="color white eraser fas fa-eraser" id="eraser"></div>
+            <div class="slider">
+                <input
+                    type="range"
+                    id="slider"
+                    name="slider"
+                    min="5"
+                    max="50"
+                    value="5"
+                    step="5"
+                />
+                <span class="sliderText" id="sliderText">5</span>
+            </div>
             <div id="save"></div>
-            <div class="reset">
-                <i class="fas fa-redo-alt"></i>
-            </div>
+            <div class="reset fas fa-redo-alt" id="reset"></div>
+            <div class="fullScreen fas fa-expand" id="fullScreen"></div>
         </div>
 
         <script src="/socket.io/socket.io.js"></script>

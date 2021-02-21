@@ -4,9 +4,16 @@
     let socket = io();
     let canvas = document.getElementsByClassName("whiteboard")[0];
     let colors = document.getElementsByClassName("color");
+    // Slider to change size
     let slider = document.getElementById("slider");
+    let sliderText = document.getElementById("sliderText");
+    // Eraser button
+    let eraser = document.getElementById("eraser");
     // Reset button
     let reset = document.getElementById("reset");
+    // FullScreen button
+    let fullScreen = document.getElementById("fullScreen");
+    // Canvas context
     let context = canvas.getContext("2d");
 
     let current = {
@@ -14,6 +21,8 @@
         lineWidth: "5",
     };
     let drawing = false;
+    let resetCanvas = false;
+    let fullScreenMode = false;
 
     canvas.addEventListener("mousedown", onMouseDown, false);
     canvas.addEventListener("mouseup", onMouseUp, false);
@@ -26,18 +35,28 @@
     canvas.addEventListener("touchcancel", onMouseUp, false);
     canvas.addEventListener("touchmove", throttle(onMouseMove, 10), false);
 
+    // Adding event listeners to each color button
+    for (let i = 0; i < colors.length; i++) {
+        colors[i].addEventListener("click", onColorUpdate, false);
+    }
+    eraser.addEventListener("click", onColorUpdate, false); // Adding event listener for eraser
+
     // Update line width value based on slider
     slider.addEventListener("mouseup", function () {
         current.lineWidth = this.value;
+        sliderText.innerText = this.value;
+    });
+    slider.addEventListener("mousemove", function () {
+        sliderText.innerText = this.value;
     });
 
-    // // Export canvas as png
+    // Export canvas as png
     let save = document.createElement("a");
     save.className = "save";
     save.innerHTML = "Save Board";
     save.addEventListener(
         "click",
-        function (ev) {
+        function () {
             save.href = canvas.toDataURL();
             save.download = "board.png";
             save.preventDefault();
@@ -46,15 +65,52 @@
     );
     document.getElementById("save").appendChild(save);
 
-    // Adding event listeners to each color button
-    for (let i = 0; i < colors.length; i++) {
-        colors[i].addEventListener("click", onColorUpdate, false);
-    }
+    // To reset the canvas to default
+    reset.addEventListener("click", resetToBlank, false);
 
+    // To open board in fullscreen mode
+    fullScreen.addEventListener(
+        "click",
+        () => {
+            if (!fullScreenMode) {
+                fullScreenMode = true;
+                document.documentElement.requestFullscreen();
+                fullScreen.className = fullScreen.className.replace(
+                    /\bfa-expand\b/g,
+                    "fa-compress"
+                );
+            } else {
+                fullScreenMode = false;
+                document.exitFullscreen();
+                document.cancelFullscreen();
+                fullScreen.className = fullScreen.className.replace(
+                    /\bfa-compress\b/g,
+                    "fa-expand"
+                );
+            }
+        },
+        false
+    );
+
+    // Socket.io watching for drawing in canvas
     socket.on("drawing", onDrawingEvent);
 
     window.addEventListener("resize", onResize, false);
     onResize();
+
+    function resetBlank() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        resetCanvas = false;
+    }
+
+    function resetToBlank() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        resetCanvas = true;
+
+        socket.emit("drawing", {
+            resetCanvas: resetCanvas,
+        });
+    }
 
     function drawLine(x0, y0, x1, y1, color, lineWidth, emit) {
         context.beginPath();
@@ -139,9 +195,14 @@
     }
 
     function onDrawingEvent(data) {
+        if (data.resetCanvas) {
+            resetBlank();
+            return;
+        }
+
         let w = canvas.width;
         let h = canvas.height;
-        // console.log(data);
+
         drawLine(
             data.x0 * w,
             data.y0 * h,

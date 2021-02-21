@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Collaboration Whiteboard</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+            integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+            crossorigin="anonymous"
+        />
+        <link rel="icon" type="image/png" href="/assets/YOOT.png" />
+        <link rel="stylesheet" href="board.css" />
+    </head>
+    <body>
+        <canvas class="whiteboard"></canvas>
+
+        <div class="tools" id="tools">
+            <div class="colors">
+                <div class="color black"></div>
+                <div class="color red"></div>
+                <div class="color green"></div>
+                <div class="color blue"></div>
+                <div class="color yellow"></div>
+            </div>
+            <div class="color white eraser fas fa-eraser" id="eraser"></div>
+            <div class="slider">
+                <input
+                    type="range"
+                    id="slider"
+                    name="slider"
+                    min="5"
+                    max="50"
+                    value="5"
+                    step="5"
+                />
+                <span class="sliderText" id="sliderText">5</span>
+            </div>
+            <div id="save"></div>
+            <div class="reset fas fa-redo-alt" id="reset"></div>
+            <div class="fullScreen fas fa-expand" id="fullScreen"></div>
+            <a href="/" class="home fas fa-home"></a>
+        </div>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/board.js"></script>
+    </body>
+</html>

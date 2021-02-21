@@ -1,0 +1,113 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+
+*,
+::before,
+::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    width: 100vw;
+    height: 100vh;
+    z-index: -100;
+    opacity: 0.7;
+}
+
+img {
+    width: 150px;
+    height: 150px;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+.join {
+    font-size: 1.5rem;
+    position: fixed;
+    top: 50px;
+    right: 150px;
+    padding: 5px 8px;
+    border: 3px solid black;
+    border-radius: 50px;
+}
+
+.join:hover {
+    cursor: pointer;
+    background-color: white;
+    color: black;
+}
+
+.create {
+    font-size: 1.5rem;
+    position: fixed;
+    top: 50px;
+    right: 30px;
+    padding: 8px;
+    background: linear-gradient(to right, #f1b38d, #e86f18);
+    border-radius: 50px;
+    box-shadow: 2px 5px 10px #00000098;
+}
+
+.create:hover {
+    cursor: pointer;
+    background: linear-gradient(to right, #e86f18, #f1b38d);
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.context {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.bigText {
+    font-size: 3rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.usage {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.demo {
+    font-size: 1.5rem;
+    font-weight: 900;
+    padding: 8px 12px;
+    background-color: #fb7454;
+    border-radius: 50px;
+    box-shadow: 2px 5px 10px #00000098;
+}
+
+.demo:hover {
+    cursor: pointer;
+    background-color: rgb(248, 176, 98);
+}

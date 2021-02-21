@@ -7,11 +7,15 @@ const port = process.env.PORT || 3000;
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 
+app.get("/", (req, res) => {
+    res.render("home");
+});
+
 app.get("/trial", (req, res) => {
     io.on("connection", (socket) => {
         socket.on("drawing", (data) => socket.broadcast.emit("drawing", data));
     });
-    res.render("index");
+    res.render("board");
 });
 
 // app.get("/trial", function onConnection(socket) {

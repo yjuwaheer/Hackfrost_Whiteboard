@@ -82,7 +82,9 @@
             } else {
                 fullScreenMode = false;
                 document.exitFullscreen();
-                document.cancelFullscreen();
+                if (navigator.userAgent.indexOf("Chrome") == -1) {
+                    document.cancelFullscreen();
+                }
                 fullScreen.className = fullScreen.className.replace(
                     /\bfa-compress\b/g,
                     "fa-expand"

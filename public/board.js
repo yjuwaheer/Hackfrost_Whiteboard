@@ -63,7 +63,7 @@
         },
         false
     );
-    document.getElementById("save").appendChild(save);
+    document.getElementById("saveContainer").appendChild(save);
 
     // To reset the canvas to default
     reset.addEventListener("click", resetToBlank, false);
